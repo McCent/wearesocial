@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.paypal_form.sandbox }}</td>
+            <!-- In a production environment,this should use the .render method to point all customers to the real PayPal handling systems , as in: <td>{{  product.paypal_form.render }}</td> -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{%  endblock %}
