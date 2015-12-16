@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6z&wgplz=r&dntnhw4_+66+nsm7!#xh^1n7ks!3p!z5!fusfj#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -48,9 +48,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'contact',
-    'django_forms_bootstrap',
+    'django_for'
+    'ms_bootstrap',
     'accounts',
     'stripe',
+    'paypal.standard.ipn'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,8 +94,12 @@ WSGI_APPLICATION = 'wearesocial.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'wearesocial_production',
+        'USER': 'wearesocial_user',
+        'PASSWORD': 'juventus',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -117,6 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"), # static directory at the project level
 )
@@ -135,6 +143,12 @@ STRIPE_SECRET = os.getenv('STRIPE_SECRET','sk_test_va4P0hDQHMLQsqSEQYhlEaTY')
 
 # Paypal Settings
 SITE_URL = 'http://127.0.0.1:8000'
-PAYPAL_NOTIFY_URL = 'http://127.0.0.1/a-very-hard-to-guess-url/'
+PAYPAL_NOTIFY_URL = 'http://6084bdbd.ngrok.io/a-very-hard-to-guess-url/'
 PAYPAL_RECEIVER_EMAIL = 'centauro@marco.com'
 
+TEMPLATE_DEBUG = False
+
+try:
+    from local_settings import *
+except:
+    pass

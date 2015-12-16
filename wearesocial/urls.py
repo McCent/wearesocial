@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from accounts.views import register, login, logout, profile, subscriptions_webhook
-from accounts.views import paypal_return, paypal_cancel, all_products
+from accounts.views import paypal_return, paypal_cancel, all_products, magazines
 from paypal.standard.ipn import urls as paypal_urls
+from django.conf.urls.static import static
+import settings
 
 
 urlpatterns = [
@@ -34,4 +36,5 @@ urlpatterns = [
     url(r'^paypal-return', paypal_return),
     url(r'^paypal-cancel', paypal_cancel),
     url(r'^products/$', all_products, name='productsList'),
-]
+    url(r'^magazines/$', magazines, name='magazines'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
